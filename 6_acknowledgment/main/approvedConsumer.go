@@ -9,7 +9,7 @@ func main() {
 	conn, _ := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	ch, _ := conn.Channel()
 	q, _ := ch.QueueDeclare("ackQueue", false, false, false, false, amqp.Table{"x-message-ttl": 60000})
-	msgs, _ := ch.Consume(q.Name, "", false, false, false, false, amqp.Table{"x-priority": 1})
+	msgs, _ := ch.Consume(q.Name, "", false, false, false, false, nil)
 
 	forever := make(chan bool)
 	go func() {
